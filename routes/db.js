@@ -10,7 +10,7 @@ router.use(bodyParser.json());
 
 module.exports = (params) => {
   const { client } = params;
-  router.get("/", async (req, res) => {
+  router.get("/user", async (req, res) => {
     try {
       let userDbData = await client
         .db("Save_Business_DB")
@@ -22,13 +22,14 @@ module.exports = (params) => {
       return next(e);
     }
   });
-  router.post("/c", async function (req, res) {
-    let userDbData = await client
+  router.post("/c", function (req, res) {
+    let userDbData = client
       .db("Save_Business_DB")
       .collection("Save_Business_Users")
       .insertOne(req.body);
 
-    // res.redirect("/view/layout/saveBusiness.ejs");
+    res.send({ message: "ok" });
+    return true;
   });
 
   return router;
